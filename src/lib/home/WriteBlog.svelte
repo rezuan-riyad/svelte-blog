@@ -1,7 +1,7 @@
 <script>
   let title;
   let context;
-  let showModal = true;
+  let showModal = false;
 
   const toggleShowModel = (e) => {
     let form = e.target.closest(".form");
@@ -27,6 +27,9 @@
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
+      <button class="btn btn-danger" on:click={() => (showModal = false)}
+        >Cancel</button
+      >
     </form>
   </div>
 {:else}
@@ -42,6 +45,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 10;
   }
 
   .backdrop::after {
@@ -61,10 +65,19 @@
     padding: 2rem 3rem;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10000;
+    z-index: 100;
     margin: 0 auto;
     position: relative;
     background-color: white;
     border-radius: 8px;
+  }
+
+  @media only screen and (max-width: 640px) {
+    .form {
+      width: auto;
+      min-height: 100vh;
+      position: relative;
+      margin-top: 2rem;
+    }
   }
 </style>

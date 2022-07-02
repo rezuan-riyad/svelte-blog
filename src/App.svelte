@@ -4,10 +4,9 @@
   import About from "./lib/about/About.svelte";
   import Bloggers from "./lib/bloggers/Bloggers.svelte";
   import Login from "./lib/login/Login.svelte";
-  import './lib/styles/main.css'
-import Signup from "./lib/signup/Signup.svelte";
-  let pathname;
-  $: pathname = window.location.pathname;
+  import "./lib/styles/main.css";
+  import Signup from "./lib/signup/Signup.svelte";
+  import NotFound from "./lib/notfound/NotFound.svelte";
 </script>
 
 <Router>
@@ -26,6 +25,9 @@ import Signup from "./lib/signup/Signup.svelte";
   <Route path="/bloggers">
     <Bloggers />
   </Route>
+  <Route path="*">
+    <NotFound />
+  </Route>
 </Router>
 
 <style>
@@ -33,5 +35,4 @@ import Signup from "./lib/signup/Signup.svelte";
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
-  
 </style>

@@ -18,8 +18,26 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+*{
+  box-sizing: border-box;
+}
 a {
   text-decoration: none;
   color: rgb(55, 55, 78);
   cursor: pointer;
+}
+
+body {
+  background-color: #f4f4f4;
+}
+
+.header {
+  font-size: 32px;
+  text-align: center;
+}
+
+p{
+  margin-bottom: 0;
+  font-size: .95rem;
+  line-height: 1.5rem;
 }

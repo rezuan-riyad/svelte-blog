@@ -29,4 +29,18 @@
   .right-section {
     position: static;
   }
+
+  @media only screen and (max-width: 640px) {
+    .middle-section {
+      padding: 0 1rem;
+      width: auto;
+    }
+    .right-section {
+      display: none;
+    }
+
+    .left-section {
+      display: none;
+    }
+  }
 </style>
