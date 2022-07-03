@@ -4,6 +4,7 @@
   import About from "./lib/about/About.svelte";
   import Bloggers from "./lib/bloggers/Bloggers.svelte";
   import Login from "./lib/login/Login.svelte";
+  import Blog from "./lib/blog/Blog.svelte";
   import "./lib/styles/main.css";
   import Signup from "./lib/signup/Signup.svelte";
   import NotFound from "./lib/notfound/NotFound.svelte";
@@ -19,12 +20,13 @@
   <Route path="/">
     <Home />
   </Route>
-  <Route path="/about">
-    <About />
+
+  <Route path="/blog/*">
+    <Route path="/" component={Home} />
+    <Route path=":id" component={Blog} />
   </Route>
-  <Route path="/bloggers">
-    <Bloggers />
-  </Route>
+  <Route path="/about" component={About} />
+  <Route path="/bloggers" component={Bloggers} />
   <Route path="*">
     <NotFound />
   </Route>

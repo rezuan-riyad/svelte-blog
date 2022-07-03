@@ -3,6 +3,7 @@
   import { createEventDispatcher } from "svelte";
   export let blogger;
   let closeBtn = false;
+  let following;
   const dispatch = createEventDispatcher();
 
   const showCloseBtn = () => {
@@ -14,6 +15,11 @@
 
   const hideBlogger = () => {
     dispatch("hide-blogger", blogger.id);
+  };
+
+  const handleFollow = () => {
+    // TODO: Fetch update 
+    following = true;
   };
 </script>
 
@@ -34,7 +40,10 @@
         .address.zipcode}
     </p>
     <div class="d-flex">
-      <Button text="Follow" />
+      <Button
+        text={following ? "Following" : "Follow"}
+        on:btn-click={handleFollow}
+      />
     </div>
     {#if closeBtn}
       <button class="hide-button" on:click={hideBlogger}>

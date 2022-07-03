@@ -1,18 +1,44 @@
 <script>
-  let title;
-  let context;
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  let title = "";
+  let context = "";
   let showModal = false;
+  let errorMessage = "";
+  let charlen = 0;
 
   const toggleShowModel = (e) => {
     let form = e.target.closest(".form");
     if (form) return;
     showModal = !showModal;
   };
+
+  const onNewBlogWritten = () => {
+    if (!title || !context) {
+      errorMessage = "Title and Context are required.";
+      return;
+    } else if (charlen < 150) {
+      errorMessage = "Minimum 150 charecters are required to create a blog post.";
+      return;
+    }
+    dispatch("new-blog", {
+      title: title,
+      context: context,
+    });
+  };
+
+  const calculateCharlen = () => {
+    charlen = context.replace(/\s/g, '').length;
+  };
 </script>
 
 {#if showModal}
   <div class="backdrop" on:click={toggleShowModel}>
-    <form class="form">
+    <form class="form" on:submit|preventDefault={onNewBlogWritten}>
+      {#if errorMessage}
+        <p class="error-text text-danger">{errorMessage}</p>
+      {/if}
       <div class="form-group mb-2">
         <label for="title" class="mb-1">Blog Tilte</label>
         <input class="form-control" placeholder="Title" bind:value={title} />
@@ -24,12 +50,14 @@
           rows={10}
           placeholder="Write your post"
           bind:value={context}
+          on:keydown={calculateCharlen}
         />
       </div>
+      <p style="text-align: right;">{charlen}/150</p>
       <button type="submit" class="btn btn-primary">Submit</button>
-      <button class="btn btn-danger" on:click={() => (showModal = false)}
-        >Cancel</button
-      >
+      <button class="btn btn-danger" on:click={() => (showModal = false)}>
+        Cancel
+      </button>
     </form>
   </div>
 {:else}
@@ -70,6 +98,10 @@
     position: relative;
     background-color: white;
     border-radius: 8px;
+  }
+
+  .error-text {
+
   }
 
   @media only screen and (max-width: 640px) {

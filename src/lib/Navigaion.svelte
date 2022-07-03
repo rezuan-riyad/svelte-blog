@@ -1,16 +1,22 @@
 <script>
-  let loggedIn = true;
+  import { useLocation } from "svelte-navigator";
   import { Link } from "svelte-navigator";
-  import BurgerIcon from "./styled__components/BurgerIcon.svelte";
   import User from "./styled__components/User.svelte";
   import SeachForm from "./SeachForm.svelte";
+  const location = useLocation();
 
-  const showLinks = () => {};
+  let pathname = $location.pathname;
+  const navLinks = [
+    { pathname: "/", title: "Home" },
+    { pathname: "/blog", title: "Blog" },
+    { pathname: "/bloggers", title: "Bloggers" },
+    { pathname: "/about", title: "About" },
+  ];
 </script>
 
 <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/">BlogHut</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -27,16 +33,15 @@
         <SeachForm />
       </div>
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <Link class="nav-link active" aria-current="page" to="/">Home</Link>
-        </li>
-        <li class="nav-item">
-          <Link class="nav-link" to="/bloggers">Bloggers</Link>
-        </li>
-        <li class="nav-item">
-          <Link class="nav-link" to="/about">About</Link>
-        </li>
-
+        {#each navLinks as item}
+          <li class="nav-item">
+            <Link
+              class={`nav-link ${pathname === item.pathname ? "active" : ""}`}
+              aria-current="page"
+              to={item.pathname}>{item.title}</Link
+            >
+          </li>
+        {/each}
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown

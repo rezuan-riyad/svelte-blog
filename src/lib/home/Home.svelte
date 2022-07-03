@@ -11,9 +11,10 @@
   let displayedblogs = [];
   let page = 0;
   let displayBottomLoader = false;
+  let postSuccessMessage = '';
 
   const fetchMoreBlogs = () => {
-    if(page == 10) return;
+    if (page == 10) return;
     page++;
     displayBottomLoader = true;
 
@@ -41,13 +42,28 @@
   onDestroy(() => {
     document.removeEventListener("scroll", scrollHandler);
   });
+
+  const handleBlogPost = (event) => {
+    // TODO: post blog to server
+    const { title, context } = event.detail;
+    let newId = totalblogs.length + 1;
+    let newBlog = {
+      id: newId,
+      userId: 11,
+      title,
+      body: context,
+    };
+    displayedblogs = [newBlog, ...displayedblogs];
+    totalblogs = [newBlog, ...totalblogs];
+    
+  };
 </script>
 
 <Layout>
   <div slot="children">
     <ShowcaseLayout>
       <div slot="blog-section">
-        <WriteBlog />
+        <WriteBlog on:new-blog={handleBlogPost} />
         {#each displayedblogs as blog}
           <MediaCard {blog} />
         {/each}

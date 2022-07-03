@@ -1,9 +1,17 @@
 <script>
+  import { Link } from "svelte-navigator";
   export let blog;
   let username = "Jane Doe";
   let designation = "B.Sc. in Physics";
   let loved = false;
 
+  const getImageSrc = () => {
+    if (blog.id % 2 == 0) {
+      return `https://randomuser.me/api/portraits/women/${blog.userId}.jpg`;
+    } else {
+      return `https://randomuser.me/api/portraits/men/${blog.userId}.jpg`;
+    }
+  };
   const handleFavourite = () => {
     // TODO: Fetch request to update favourites
     loved = !loved;
@@ -14,7 +22,7 @@
   <div class="d-flex flex-row align-items-end">
     <div class="media-avatar">
       <div class="avatar">
-        <img src="img.webp" alt={username} />
+        <img src={getImageSrc()} alt={username} />
       </div>
     </div>
     <!-- Author Info for small screen -->
@@ -36,13 +44,13 @@
     <p class="para">
       {blog.body.slice(0, 150)}
       {#if blog.body.length > 150}
-        <a href="/">...See More</a>
+        <Link to={`/blog/${blog.id}`}>...See More</Link>
       {/if}
     </p>
     <div class="d-flex align-items-end justify-content-between">
-      <button class="btn btn-sm mt-2" style="border: 1px solid lightgray;"
-        >Share</button
-      >
+      <button class="btn btn-sm mt-2" style="border: 1px solid lightgray;">
+        Share
+      </button>
       <span
         title="Add To Favourite"
         style="cursor: pointer; z-index: 0;"
@@ -86,5 +94,7 @@
     margin-bottom: 0;
     line-height: 1.4rem;
     font-size: 0.95rem;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 </style>
