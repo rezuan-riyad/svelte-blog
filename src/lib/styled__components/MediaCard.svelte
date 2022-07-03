@@ -2,6 +2,12 @@
   export let blog;
   let username = "Jane Doe";
   let designation = "B.Sc. in Physics";
+  let loved = false;
+
+  const handleFavourite = () => {
+    // TODO: Fetch request to update favourites
+    loved = !loved;
+  };
 </script>
 
 <div class="media d-flex align-items-sm-end flex-column flex-sm-row">
@@ -37,9 +43,13 @@
       <button class="btn btn-sm mt-2" style="border: 1px solid lightgray;"
         >Share</button
       >
-      <span title="Add To Favourite" style="cursor: pointer; z-index: 0;">
+      <span
+        title="Add To Favourite"
+        style="cursor: pointer; z-index: 0;"
+        on:click={handleFavourite}
+      >
         <ion-icon
-          name="heart-sharp"
+          name={`heart${loved ? "-sharp" : "-outline"}`}
           title="Add To Favourite"
           style="font-size: 24px; pointer-events:none;"
         />
