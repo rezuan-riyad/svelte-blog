@@ -1,11 +1,16 @@
 <script>
   import Navigaion from "../Navigaion.svelte";
+  import SeachForm from "../SeachForm.svelte";
 </script>
 
 <div>
   <Navigaion />
+
   <div class="children">
-    <slot name="children"></slot>
+    <div class="d-block d-lg-none container">
+      <SeachForm />
+    </div>
+    <slot name="children" />
   </div>
 </div>
 

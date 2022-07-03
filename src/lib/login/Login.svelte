@@ -9,7 +9,7 @@
 </script>
 
 <div class="container form-container">
-  <h5 style="text-align:center;" class="mb-4">Welcome To Bloggers</h5>
+  <h5 class="header">Welcome To BlogHut</h5>
   <form on:submit|preventDefault={handleSubmit}>
     <div class="form-group mb-2">
       <label for="email">Email</label>
@@ -28,12 +28,18 @@
 </div>
 
 <style>
+  .header {
+    margin-bottom: 1rem;
+    text-align: center;
+    outline: none;
+    font-size: 22px;
+  }
   .form-container {
     width: 350px;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -50%);
   }
 
   .login-btn {

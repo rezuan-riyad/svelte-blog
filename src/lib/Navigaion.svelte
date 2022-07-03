@@ -3,6 +3,7 @@
   import { Link } from "svelte-navigator";
   import BurgerIcon from "./styled__components/BurgerIcon.svelte";
   import User from "./styled__components/User.svelte";
+  import SeachForm from "./SeachForm.svelte";
 
   const showLinks = () => {};
 </script>
@@ -22,15 +23,9 @@
       <span class="navbar-toggler-icon" />
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="d-none d-lg-block">
+        <SeachForm />
+      </div>
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
         <li class="nav-item">
           <Link class="nav-link active" aria-current="page" to="/">Home</Link>
@@ -41,7 +36,7 @@
         <li class="nav-item">
           <Link class="nav-link" to="/about">About</Link>
         </li>
-    
+
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -54,10 +49,7 @@
           </ul>
         </li> -->
       </ul>
-      <User src=''/>
+      <User src="" />
     </div>
   </div>
 </nav>
-
-<style>
-</style>

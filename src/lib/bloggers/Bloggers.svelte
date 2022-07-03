@@ -53,4 +53,9 @@
     max-width: 600px;
     margin: 0 auto;
   }
+  .header {
+    margin-top: 1rem;
+    font-size: 28px;
+    line-height: 3rem;
+  }
 </style>

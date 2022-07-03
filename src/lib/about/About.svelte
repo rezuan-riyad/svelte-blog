@@ -2,6 +2,12 @@
   import Layout from "../mailLayout/Layout.svelte";
 </script>
 
+<!-- 
+  @component
+  information about blogger hut
+  
+-->
+
 <Layout>
   <div slot="children">
     <div class="content">

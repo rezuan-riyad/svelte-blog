@@ -5,7 +5,7 @@
   <div class="container-fluid left-section">
     <slot name="left-section" />
   </div>
-  <div class="middle-section">
+  <div class="middle-section container-sm">
     <slot name="blog-section" />
   </div>
   <div class="container-fluid right-section">
