@@ -1,79 +1,91 @@
 <script>
-  import MediaCard from "../styled__components/MediaCard.svelte";
-  import ShowcaseLayout from "./ShowcaseLayout.svelte";
-  import Layout from "../mailLayout/Layout.svelte";
-  import WriteBlog from "./WriteBlog.svelte";
+  import { navigate } from "svelte-navigator";
+
   import Navigaion from "../Navigaion.svelte";
-  import { onDestroy, onMount } from "svelte";
-  import Button from "../styled__components/Button.svelte";
 
-  let totalblogs = [];
-  let displayedblogs = [];
-  let page = 0;
-  let displayBottomLoader = false;
-  let postSuccessMessage = '';
-
-  const fetchMoreBlogs = () => {
-    if (page == 10) return;
-    page++;
-    displayBottomLoader = true;
-
-    setTimeout(() => {
-      let temp = totalblogs.slice(displayedblogs.length + 1, page * 10);
-      displayedblogs = [...displayedblogs, ...temp];
-      displayBottomLoader = false;
-    }, 2000);
+  const navigateToBlog = () => {
+    navigate("/blog");
   };
-
-  const scrollHandler = () => {
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      fetchMoreBlogs();
-    }
-  };
-
-  onMount(async (page) => {
-    let response = await fetch(`https://jsonplaceholder.typicode.com/posts/`);
-    totalblogs = await response.json();
-    displayedblogs = totalblogs.slice(0, 10);
-    document.addEventListener("scroll", scrollHandler);
-  });
-
-  onDestroy(() => {
-    document.removeEventListener("scroll", scrollHandler);
-  });
-
-  const handleBlogPost = (event) => {
-    // TODO: post blog to server
-    const { title, context } = event.detail;
-    let newId = totalblogs.length + 1;
-    let newBlog = {
-      id: newId,
-      userId: 11,
-      title,
-      body: context,
-    };
-    displayedblogs = [newBlog, ...displayedblogs];
-    totalblogs = [newBlog, ...totalblogs];
-    
+  const navigateToWrite = () => {
+    navigate("/blog/write");
   };
 </script>
 
-<Layout>
-  <div slot="children">
-    <ShowcaseLayout>
-      <div slot="blog-section">
-        <WriteBlog on:new-blog={handleBlogPost} />
-        {#each displayedblogs as blog}
-          <MediaCard {blog} />
-        {/each}
-        <div class="text-center mt-3 mb-3">
-          {#if displayBottomLoader}
-            Loading ...
-          {/if}
-          <!-- <Button text="Explore More" /> -->
-        </div>
-      </div>
-    </ShowcaseLayout>
+<Navigaion />
+<div style="position: relative;">
+  <div class="imagebox">
+    <img src="/background.jpg" alt="Someone Studying" />
   </div>
-</Layout>
+  <div class="showcase">
+    <h1>Stay Touched with <span style="color: #1c8554; background: #eee; padding: .25rem 1rem;">BlogHut</span></h1>
+    <div class="hr" />
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, ipsam.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, ipsam
+    </p>
+    <button class="btn_rio green_btn" on:click={navigateToBlog}>
+      Read Blog
+    </button>
+    <button class="btn_rio white_btn" on:click={navigateToWrite}
+      >Write Blog</button
+    >
+  </div>
+</div>
+
+<style>
+  .imagebox {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .imagebox::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.6;
+  }
+  .imagebox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .showcase {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    width: 600px;
+  }
+  .showcase h1 {
+    color: white;
+  }
+  .showcase .hr {
+    width: 600px;
+    height: 3px;
+    background-color: white;
+  }
+  .showcase p {
+    color: white;
+    font-size: 18px;
+    margin-top: 0.25rem;
+    line-height: 28px;
+  }
+  .btn_rio {
+    padding: 0.5rem 1.2rem;
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+  }
+  .green_btn {
+    background-color: #1c8554;
+    color: white;
+  }
+  .green_btn:hover {
+    background-color: rgb(12, 88, 53);
+    box-shadow: 0 4px 2px -2px #4e4e4e;
+  }
+</style>
